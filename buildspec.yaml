@@ -22,7 +22,7 @@ phases:
       - var=$(echo $JSON_Obj | jq tojson)
       - echo $var
       
-      - aws stepfunctions start-execution --state-machine-arn arn:aws:states:us-west-2:996302627310:stateMachine:HelloWorld --name "HelloWorld-$RUN_POD_NO-$CODEBUILD_BUILD_NUMBER" --input "$var" --region us-west-2
+      - cdk --app "npx ts-node lib/custom-workshop-stack.ts" deploy --require-approval never
      
 
   post_build:
