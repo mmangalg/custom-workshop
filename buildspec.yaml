@@ -23,6 +23,8 @@ phases:
       - echo $var
       - npm --version
       - python --version
+      - npm install -g aws-cdk
+
       - cdk --app "npx ts-node lib/custom-workshop-stack.ts" deploy --require-approval never
      
 
