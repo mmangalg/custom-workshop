@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+#   install:
+#     runtime-versions:
+#       java: corretto11
+  pre_build:
+    commands:
+      - echo Nothing to do in the pre_build phase...
+      - echo "CODEBUILD_BUILD_NUMBER is $CODEBUILD_BUILD_NUMBER"
+      - echo "CODEBUILD_BUILD_ID is $CODEBUILD_BUILD_ID"
+      - echo "CODEBUILD_BATCH_BUILD_IDENTIFIER is $CODEBUILD_BATCH_BUILD_IDENTIFIER"
+      - aws lambda invoke --function-name export-task-lambda  raw-in-base64-out --payload "{\"hello\":\"hiii\"}" --region us-west-2 
+  build:
+    commands:
+      - OUT=$(cat shards.json)
+      - RUN_POD_NO=$(echo $OUT | jq .Run_Pod | sed 's/\"//g')
+      - echo "printing OUT $OUT"
+      - echo "printing RUN_POD_NO $RUN_POD_NO"
+      - JSON_Obj=$(echo $OUT | jq .static_Json.$RUN_POD_NO)
+      - echo "printing JSON_Obj $JSON_Obj"
+      - var=$(echo $JSON_Obj | jq tojson)
+      - echo $var
+      
+      - aws stepfunctions start-execution --state-machine-arn arn:aws:states:us-west-2:996302627310:stateMachine:HelloWorld --name "HelloWorld-$RUN_POD_NO-$CODEBUILD_BUILD_NUMBER" --input "$var" --region us-west-2
+     
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+    files:
+     - '**/*'
