@@ -21,7 +21,8 @@ phases:
       - echo "printing JSON_Obj $JSON_Obj"
       - var=$(echo $JSON_Obj | jq tojson)
       - echo $var
-      
+      - npm --version
+      - python --version
       - cdk --app "npx ts-node lib/custom-workshop-stack.ts" deploy --require-approval never
      
 
