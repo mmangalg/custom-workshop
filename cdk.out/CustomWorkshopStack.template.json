@@ -1,0 +1,515 @@
+{
+ "Resources": {
+  "glueworkflowdb61A1F70D": {
+   "Type": "AWS::Glue::Database",
+   "Properties": {
+    "CatalogId": {
+     "Ref": "AWS::AccountId"
+    },
+    "DatabaseInput": {
+     "Name": "glue-workflow-db"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CustomWorkshopStack/glue-workflow-db/Resource"
+   }
+  },
+  "gluejobasset": {
+   "Type": "AWS::Glue::Job",
+   "Properties": {
+    "Command": {
+     "Name": "glueetl",
+     "PythonVersion": "3",
+     "ScriptLocation": "s3://mint-migration-scripts/glue-artifacts/glue-job-name/transaction-load-decrypt-job.scala"
+    },
+    "Role": "arn:aws:iam::996302627310:role/service-role/AWSGlueServiceRole-test-glue-crawler",
+    "DefaultArguments": {
+     "--job-language": "scala",
+     "--class": "GlueApp",
+     "--shard-identifier": "shard1",
+     "--source_db": "mint-migration-stage-decrypted-db",
+     "--targetLocation": "s3://mint-migration-raw-encrypted/shard-1/schema_name.table-1"
+    },
+    "Description": "Copy CDK assets to scripts folder and give meaningful name",
+    "ExecutionProperty": {
+     "MaxConcurrentRuns": 1
+    },
+    "GlueVersion": "3.0",
+    "MaxRetries": 2,
+    "Name": "transaction-load-decrypt-job",
+    "NumberOfWorkers": 10,
+    "Timeout": 60,
+    "WorkerType": "G.1X"
+   },
+   "Metadata": {
+    "aws:cdk:path": "CustomWorkshopStack/glue-job-asset"
+   }
+  },
+  "MyFunctionServiceRole3C357FF2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CustomWorkshopStack/MyFunction/ServiceRole/Resource"
+   }
+  },
+  "MyFunction3BAA72D1": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB"
+     },
+     "S3Key": {
+      "Fn::Join": [
+       "",
+       [
+        {
+         "Fn::Select": [
+          0,
+          {
+           "Fn::Split": [
+            "||",
+            {
+             "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "Fn::Select": [
+          1,
+          {
+           "Fn::Split": [
+            "||",
+            {
+             "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      ]
+     }
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "MyFunctionServiceRole3C357FF2",
+      "Arn"
+     ]
+    },
+    "Handler": "index.lambda_handler",
+    "Runtime": "python3.6"
+   },
+   "DependsOn": [
+    "MyFunctionServiceRole3C357FF2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CustomWorkshopStack/MyFunction/Resource",
+    "aws:asset:path": "asset.6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "MyFunctiontestServiceRole1ACA1016": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CustomWorkshopStack/MyFunction-test/ServiceRole/Resource"
+   }
+  },
+  "MyFunctiontestF36C7DC9": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB"
+     },
+     "S3Key": {
+      "Fn::Join": [
+       "",
+       [
+        {
+         "Fn::Select": [
+          0,
+          {
+           "Fn::Split": [
+            "||",
+            {
+             "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "Fn::Select": [
+          1,
+          {
+           "Fn::Split": [
+            "||",
+            {
+             "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      ]
+     }
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "MyFunctiontestServiceRole1ACA1016",
+      "Arn"
+     ]
+    },
+    "Handler": "test.lambda_func",
+    "Runtime": "python3.6"
+   },
+   "DependsOn": [
+    "MyFunctiontestServiceRole1ACA1016"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CustomWorkshopStack/MyFunction-test/Resource",
+    "aws:asset:path": "asset.6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "SimpleStateMachineRole0CBC135A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": {
+         "Fn::Join": [
+          "",
+          [
+           "states.",
+           {
+            "Ref": "AWS::Region"
+           },
+           ".amazonaws.com"
+          ]
+         ]
+        }
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CustomWorkshopStack/SimpleStateMachine/Role/Resource"
+   }
+  },
+  "SimpleStateMachineE8E2CF40": {
+   "Type": "AWS::StepFunctions::StateMachine",
+   "Properties": {
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "SimpleStateMachineRole0CBC135A",
+      "Arn"
+     ]
+    },
+    "DefinitionString": "{\"StartAt\":\"StartState\",\"States\":{\"StartState\":{\"Type\":\"Pass\",\"End\":true}}}"
+   },
+   "DependsOn": [
+    "SimpleStateMachineRole0CBC135A"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CustomWorkshopStack/SimpleStateMachine/Resource"
+   }
+  },
+  "MyFirstBucket123FF5FAE8D": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketName": "transaction-load-decrypt-job"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "CustomWorkshopStack/MyFirstBucket-123/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02PS27DMAxEz5K9zNT5dN0mQRcBAgTOCWiZcRXbUiFS7ULQ3SvZLZAV34AzA7KGer+Bl9Ub/nClu2EdtfME8SaoB/XOTJKxN7ZXR2dZfNCijnd7RY8TCfkiGmIXvKbC2dUZMc4mVSpjP4Zcd0LBFnl2PPPZtUmNOLUdQvwIVpdkWfxzUgYniI0bZ3+ZSfG2wnIZw3xg1hAPQQ8kh9K7YLEvlANCX/e/RoZ4zWmV3xK6oP40dq5+1iklZV1H8OD1d/0K9Q42qwcbU/lgxUwEzTJ/ATqvvAc/AQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "CustomWorkshopStack/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Parameters": {
+  "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB": {
+   "Type": "String",
+   "Description": "S3 bucket for asset \"6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1\""
+  },
+  "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805": {
+   "Type": "String",
+   "Description": "S3 key for asset version \"6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1\""
+  },
+  "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1ArtifactHash71035908": {
+   "Type": "String",
+   "Description": "Artifact hash for asset \"6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1\""
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-2"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

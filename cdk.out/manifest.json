@@ -1,0 +1,802 @@
+{
+  "version": "17.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "CustomWorkshopStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "CustomWorkshopStack.template.json",
+        "validateOnSynth": false
+      },
+      "metadata": {
+        "/CustomWorkshopStack": [
+          {
+            "type": "aws:cdk:asset",
+            "data": {
+              "path": "asset.6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
+              "id": "6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
+              "packaging": "zip",
+              "sourceHash": "6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
+              "s3BucketParameter": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB",
+              "s3KeyParameter": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805",
+              "artifactHashParameter": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1ArtifactHash71035908"
+            },
+            "trace": [
+              "ConstructNode.addMetadata (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/construct-compat.ts:453:92)",
+              "LegacyStackSynthesizer.doAddFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:186:23)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:86:19)",
+              "CustomWorkshopStack.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack.ts:683:29)",
+              "/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:53",
+              "withoutDeprecationWarnings (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:218:12)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:14)",
+              "new Asset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-s3-assets/lib/asset.ts:152:40)",
+              "AssetCode.bind (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/code.ts:285:20)",
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:699:29)",
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:55:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/glue-workflow-db/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "glueworkflowdb61A1F70D",
+            "trace": [
+              "new Database (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-glue/lib/database.ts:108:22)",
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:25:25)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/glue-job-asset": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "gluejobasset",
+            "trace": [
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:29:36)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/MyFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyFunctionServiceRole3C357FF2",
+            "trace": [
+              "new Role (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-iam/lib/role.ts:358:18)",
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:679:31)",
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:55:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/MyFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyFunction3BAA72D1",
+            "trace": [
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:762:35)",
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:55:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1/S3Bucket": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB",
+            "trace": [
+              "new FileAssetParameters (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/asset-parameters.ts:16:32)",
+              "LegacyStackSynthesizer.doAddFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:169:16)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:86:19)",
+              "CustomWorkshopStack.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack.ts:683:29)",
+              "/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:53",
+              "withoutDeprecationWarnings (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:218:12)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:14)",
+              "new Asset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-s3-assets/lib/asset.ts:152:40)",
+              "AssetCode.bind (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/code.ts:285:20)",
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:699:29)",
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:55:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1/S3VersionKey": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805",
+            "trace": [
+              "new FileAssetParameters (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/asset-parameters.ts:21:31)",
+              "LegacyStackSynthesizer.doAddFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:169:16)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:86:19)",
+              "CustomWorkshopStack.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack.ts:683:29)",
+              "/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:53",
+              "withoutDeprecationWarnings (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:218:12)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:14)",
+              "new Asset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-s3-assets/lib/asset.ts:152:40)",
+              "AssetCode.bind (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/code.ts:285:20)",
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:699:29)",
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:55:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1/ArtifactHash": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1ArtifactHash71035908",
+            "trace": [
+              "new FileAssetParameters (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/asset-parameters.ts:26:34)",
+              "LegacyStackSynthesizer.doAddFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:169:16)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:86:19)",
+              "CustomWorkshopStack.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack.ts:683:29)",
+              "/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:53",
+              "withoutDeprecationWarnings (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:218:12)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:14)",
+              "new Asset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-s3-assets/lib/asset.ts:152:40)",
+              "AssetCode.bind (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/code.ts:285:20)",
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:699:29)",
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:55:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/MyFunction-test/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyFunctiontestServiceRole1ACA1016",
+            "trace": [
+              "new Role (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-iam/lib/role.ts:358:18)",
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:679:31)",
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:61:13)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/MyFunction-test/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyFunctiontestF36C7DC9",
+            "trace": [
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:762:35)",
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:61:13)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/SimpleStateMachine/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SimpleStateMachineRole0CBC135A",
+            "trace": [
+              "new Role (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-iam/lib/role.ts:358:18)",
+              "new StateMachine (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-stepfunctions/lib/state-machine.ts:388:31)",
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:68:29)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/SimpleStateMachine/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SimpleStateMachineE8E2CF40",
+            "trace": [
+              "new StateMachine (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-stepfunctions/lib/state-machine.ts:397:22)",
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:68:29)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/MyFirstBucket-123/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyFirstBucket123FF5FAE8D",
+            "trace": [
+              "new Bucket (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:1676:22)",
+              "new CustomWorkshopStack (/home/ec2-user/environment/custom-workshop/lib/custom-workshop-stack.ts:72:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:8:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:22:24)",
+              "/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:646:26)",
+              "process.emit (node:events:526:28)",
+              "process.emit (node:domain:475:12)",
+              "process.emit (/home/ec2-user/environment/custom-workshop/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/CustomWorkshopStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable",
+            "trace": [
+              "new MetadataResource (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:31:27)",
+              "/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:646:26)",
+              "process.emit (node:events:526:28)",
+              "process.emit (node:domain:475:12)",
+              "process.emit (/home/ec2-user/environment/custom-workshop/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ]
+      },
+      "displayName": "CustomWorkshopStack"
+    },
+    "PipelineStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "PipelineStack.template.json",
+        "validateOnSynth": false
+      },
+      "metadata": {
+        "/PipelineStack": [
+          {
+            "type": "aws:cdk:asset",
+            "data": {
+              "path": "asset.6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
+              "id": "6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
+              "packaging": "zip",
+              "sourceHash": "6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
+              "s3BucketParameter": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB",
+              "s3KeyParameter": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805",
+              "artifactHashParameter": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1ArtifactHash71035908"
+            },
+            "trace": [
+              "ConstructNode.addMetadata (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/construct-compat.ts:453:92)",
+              "LegacyStackSynthesizer.doAddFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:186:23)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:86:19)",
+              "PipelineStack.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack.ts:683:29)",
+              "/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:53",
+              "withoutDeprecationWarnings (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:218:12)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:14)",
+              "new Asset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-s3-assets/lib/asset.ts:152:40)",
+              "AssetCode.bind (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/code.ts:285:20)",
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:699:29)",
+              "new PipelineStack (/home/ec2-user/environment/custom-workshop/lib/pipeline-stack.ts:55:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PipelineStack/glue-workflow-db/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "glueworkflowdb61A1F70D",
+            "trace": [
+              "new Database (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-glue/lib/database.ts:108:22)",
+              "new PipelineStack (/home/ec2-user/environment/custom-workshop/lib/pipeline-stack.ts:25:25)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PipelineStack/glue-job-asset": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "gluejobasset",
+            "trace": [
+              "new PipelineStack (/home/ec2-user/environment/custom-workshop/lib/pipeline-stack.ts:29:36)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PipelineStack/MyFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyFunctionServiceRole3C357FF2",
+            "trace": [
+              "new Role (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-iam/lib/role.ts:358:18)",
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:679:31)",
+              "new PipelineStack (/home/ec2-user/environment/custom-workshop/lib/pipeline-stack.ts:55:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PipelineStack/MyFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyFunction3BAA72D1",
+            "trace": [
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:762:35)",
+              "new PipelineStack (/home/ec2-user/environment/custom-workshop/lib/pipeline-stack.ts:55:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PipelineStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1/S3Bucket": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB",
+            "trace": [
+              "new FileAssetParameters (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/asset-parameters.ts:16:32)",
+              "LegacyStackSynthesizer.doAddFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:169:16)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:86:19)",
+              "PipelineStack.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack.ts:683:29)",
+              "/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:53",
+              "withoutDeprecationWarnings (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:218:12)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:14)",
+              "new Asset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-s3-assets/lib/asset.ts:152:40)",
+              "AssetCode.bind (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/code.ts:285:20)",
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:699:29)",
+              "new PipelineStack (/home/ec2-user/environment/custom-workshop/lib/pipeline-stack.ts:55:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PipelineStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1/S3VersionKey": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805",
+            "trace": [
+              "new FileAssetParameters (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/asset-parameters.ts:21:31)",
+              "LegacyStackSynthesizer.doAddFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:169:16)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:86:19)",
+              "PipelineStack.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack.ts:683:29)",
+              "/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:53",
+              "withoutDeprecationWarnings (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:218:12)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:14)",
+              "new Asset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-s3-assets/lib/asset.ts:152:40)",
+              "AssetCode.bind (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/code.ts:285:20)",
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:699:29)",
+              "new PipelineStack (/home/ec2-user/environment/custom-workshop/lib/pipeline-stack.ts:55:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PipelineStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1/ArtifactHash": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1ArtifactHash71035908",
+            "trace": [
+              "new FileAssetParameters (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/asset-parameters.ts:26:34)",
+              "LegacyStackSynthesizer.doAddFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:169:16)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:86:19)",
+              "PipelineStack.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack.ts:683:29)",
+              "/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:53",
+              "withoutDeprecationWarnings (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:218:12)",
+              "LegacyStackSynthesizer.addFileAsset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:91:14)",
+              "new Asset (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-s3-assets/lib/asset.ts:152:40)",
+              "AssetCode.bind (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/code.ts:285:20)",
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:699:29)",
+              "new PipelineStack (/home/ec2-user/environment/custom-workshop/lib/pipeline-stack.ts:55:16)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PipelineStack/MyFunction-test/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyFunctiontestServiceRole1ACA1016",
+            "trace": [
+              "new Role (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-iam/lib/role.ts:358:18)",
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:679:31)",
+              "new PipelineStack (/home/ec2-user/environment/custom-workshop/lib/pipeline-stack.ts:62:13)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PipelineStack/MyFunction-test/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyFunctiontestF36C7DC9",
+            "trace": [
+              "new Function (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/aws-lambda/lib/function.ts:762:35)",
+              "new PipelineStack (/home/ec2-user/environment/custom-workshop/lib/pipeline-stack.ts:62:13)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/bin/custom-workshop.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Module.m._compile (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "main (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1103:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1157:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PipelineStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:22:24)",
+              "/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:646:26)",
+              "process.emit (node:events:526:28)",
+              "process.emit (node:domain:475:12)",
+              "process.emit (/home/ec2-user/environment/custom-workshop/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/PipelineStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable",
+            "trace": [
+              "new MetadataResource (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:31:27)",
+              "/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/ec2-user/environment/custom-workshop/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:646:26)",
+              "process.emit (node:events:526:28)",
+              "process.emit (node:domain:475:12)",
+              "process.emit (/home/ec2-user/environment/custom-workshop/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ]
+      },
+      "displayName": "PipelineStack"
+    }
+  }
+}

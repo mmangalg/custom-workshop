@@ -1,0 +1,997 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Construct",
+          "version": "1.152.0"
+        }
+      },
+      "CustomWorkshopStack": {
+        "id": "CustomWorkshopStack",
+        "path": "CustomWorkshopStack",
+        "children": {
+          "glue-workflow-db": {
+            "id": "glue-workflow-db",
+            "path": "CustomWorkshopStack/glue-workflow-db",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "CustomWorkshopStack/glue-workflow-db/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Glue::Database",
+                  "aws:cdk:cloudformation:props": {
+                    "catalogId": {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "databaseInput": {
+                      "name": "glue-workflow-db"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-glue.CfnDatabase",
+                  "version": "1.152.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-glue.Database",
+              "version": "1.152.0"
+            }
+          },
+          "glue-job-asset": {
+            "id": "glue-job-asset",
+            "path": "CustomWorkshopStack/glue-job-asset",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Glue::Job",
+              "aws:cdk:cloudformation:props": {
+                "command": {
+                  "name": "glueetl",
+                  "pythonVersion": "3",
+                  "scriptLocation": "s3://mint-migration-scripts/glue-artifacts/glue-job-name/transaction-load-decrypt-job.scala"
+                },
+                "role": "arn:aws:iam::996302627310:role/service-role/AWSGlueServiceRole-test-glue-crawler",
+                "defaultArguments": {
+                  "--job-language": "scala",
+                  "--class": "GlueApp",
+                  "--shard-identifier": "shard1",
+                  "--source_db": "mint-migration-stage-decrypted-db",
+                  "--targetLocation": "s3://mint-migration-raw-encrypted/shard-1/schema_name.table-1"
+                },
+                "description": "Copy CDK assets to scripts folder and give meaningful name",
+                "executionProperty": {
+                  "maxConcurrentRuns": 1
+                },
+                "glueVersion": "3.0",
+                "maxRetries": 2,
+                "name": "transaction-load-decrypt-job",
+                "numberOfWorkers": 10,
+                "timeout": 60,
+                "workerType": "G.1X"
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-glue.CfnJob",
+              "version": "1.152.0"
+            }
+          },
+          "MyFunction": {
+            "id": "MyFunction",
+            "path": "CustomWorkshopStack/MyFunction",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "CustomWorkshopStack/MyFunction/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CustomWorkshopStack/MyFunction/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.CfnRole",
+                      "version": "1.152.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-iam.Role",
+                  "version": "1.152.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "CustomWorkshopStack/MyFunction/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "CustomWorkshopStack/MyFunction/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.AssetStaging",
+                      "version": "1.152.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "CustomWorkshopStack/MyFunction/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3.BucketBase",
+                      "version": "1.152.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                  "version": "1.152.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "CustomWorkshopStack/MyFunction/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "MyFunctionServiceRole3C357FF2",
+                        "Arn"
+                      ]
+                    },
+                    "handler": "index.lambda_handler",
+                    "runtime": "python3.6"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                  "version": "1.152.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-lambda.Function",
+              "version": "1.152.0"
+            }
+          },
+          "AssetParameters": {
+            "id": "AssetParameters",
+            "path": "CustomWorkshopStack/AssetParameters",
+            "children": {
+              "6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1": {
+                "id": "6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
+                "path": "CustomWorkshopStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "CustomWorkshopStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.152.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "CustomWorkshopStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.152.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "CustomWorkshopStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.152.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.152.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.152.0"
+            }
+          },
+          "MyFunction-test": {
+            "id": "MyFunction-test",
+            "path": "CustomWorkshopStack/MyFunction-test",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "CustomWorkshopStack/MyFunction-test/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CustomWorkshopStack/MyFunction-test/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.CfnRole",
+                      "version": "1.152.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-iam.Role",
+                  "version": "1.152.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "CustomWorkshopStack/MyFunction-test/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "CustomWorkshopStack/MyFunction-test/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.AssetStaging",
+                      "version": "1.152.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "CustomWorkshopStack/MyFunction-test/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3.BucketBase",
+                      "version": "1.152.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                  "version": "1.152.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "CustomWorkshopStack/MyFunction-test/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "MyFunctiontestServiceRole1ACA1016",
+                        "Arn"
+                      ]
+                    },
+                    "handler": "test.lambda_func",
+                    "runtime": "python3.6"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                  "version": "1.152.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-lambda.Function",
+              "version": "1.152.0"
+            }
+          },
+          "StartState": {
+            "id": "StartState",
+            "path": "CustomWorkshopStack/StartState",
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-stepfunctions.Pass",
+              "version": "1.152.0"
+            }
+          },
+          "SimpleStateMachine": {
+            "id": "SimpleStateMachine",
+            "path": "CustomWorkshopStack/SimpleStateMachine",
+            "children": {
+              "Role": {
+                "id": "Role",
+                "path": "CustomWorkshopStack/SimpleStateMachine/Role",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CustomWorkshopStack/SimpleStateMachine/Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "states.",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ".amazonaws.com"
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.CfnRole",
+                      "version": "1.152.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-iam.Role",
+                  "version": "1.152.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "CustomWorkshopStack/SimpleStateMachine/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::StepFunctions::StateMachine",
+                  "aws:cdk:cloudformation:props": {
+                    "roleArn": {
+                      "Fn::GetAtt": [
+                        "SimpleStateMachineRole0CBC135A",
+                        "Arn"
+                      ]
+                    },
+                    "definitionString": "{\"StartAt\":\"StartState\",\"States\":{\"StartState\":{\"Type\":\"Pass\",\"End\":true}}}"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-stepfunctions.CfnStateMachine",
+                  "version": "1.152.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-stepfunctions.StateMachine",
+              "version": "1.152.0"
+            }
+          },
+          "MyFirstBucket-123": {
+            "id": "MyFirstBucket-123",
+            "path": "CustomWorkshopStack/MyFirstBucket-123",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "CustomWorkshopStack/MyFirstBucket-123/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketName": "transaction-load-decrypt-job"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3.CfnBucket",
+                  "version": "1.152.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-s3.Bucket",
+              "version": "1.152.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "CustomWorkshopStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "CustomWorkshopStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.152.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "CustomWorkshopStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnCondition",
+                  "version": "1.152.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.152.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Stack",
+          "version": "1.152.0"
+        }
+      },
+      "PipelineStack": {
+        "id": "PipelineStack",
+        "path": "PipelineStack",
+        "children": {
+          "glue-workflow-db": {
+            "id": "glue-workflow-db",
+            "path": "PipelineStack/glue-workflow-db",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PipelineStack/glue-workflow-db/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Glue::Database",
+                  "aws:cdk:cloudformation:props": {
+                    "catalogId": {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "databaseInput": {
+                      "name": "glue-workflow-db-pipeline"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-glue.CfnDatabase",
+                  "version": "1.152.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-glue.Database",
+              "version": "1.152.0"
+            }
+          },
+          "glue-job-asset": {
+            "id": "glue-job-asset",
+            "path": "PipelineStack/glue-job-asset",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Glue::Job",
+              "aws:cdk:cloudformation:props": {
+                "command": {
+                  "name": "glueetl",
+                  "pythonVersion": "3",
+                  "scriptLocation": "s3://mint-migration-scripts/glue-artifacts/glue-job-name/transaction-load-decrypt-job.scala"
+                },
+                "role": "arn:aws:iam::996302627310:role/service-role/AWSGlueServiceRole-test-glue-crawler",
+                "defaultArguments": {
+                  "--job-language": "scala",
+                  "--class": "GlueApp",
+                  "--shard-identifier": "shard1",
+                  "--source_db": "mint-migration-stage-decrypted-db",
+                  "--targetLocation": "s3://mint-migration-raw-encrypted/shard-1/schema_name.table-1"
+                },
+                "description": "Copy CDK assets to scripts folder and give meaningful name",
+                "executionProperty": {
+                  "maxConcurrentRuns": 1
+                },
+                "glueVersion": "3.0",
+                "maxRetries": 2,
+                "name": "transaction-load-decrypt-job-pipeline",
+                "numberOfWorkers": 10,
+                "timeout": 60,
+                "workerType": "G.1X"
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-glue.CfnJob",
+              "version": "1.152.0"
+            }
+          },
+          "MyFunction": {
+            "id": "MyFunction",
+            "path": "PipelineStack/MyFunction",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "PipelineStack/MyFunction/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PipelineStack/MyFunction/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.CfnRole",
+                      "version": "1.152.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-iam.Role",
+                  "version": "1.152.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "PipelineStack/MyFunction/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "PipelineStack/MyFunction/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.AssetStaging",
+                      "version": "1.152.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "PipelineStack/MyFunction/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3.BucketBase",
+                      "version": "1.152.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                  "version": "1.152.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "PipelineStack/MyFunction/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "MyFunctionServiceRole3C357FF2",
+                        "Arn"
+                      ]
+                    },
+                    "functionName": "MyFunctionPipeline",
+                    "handler": "index.lambda_handler",
+                    "runtime": "python3.6"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                  "version": "1.152.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-lambda.Function",
+              "version": "1.152.0"
+            }
+          },
+          "AssetParameters": {
+            "id": "AssetParameters",
+            "path": "PipelineStack/AssetParameters",
+            "children": {
+              "6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1": {
+                "id": "6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
+                "path": "PipelineStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "PipelineStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.152.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "PipelineStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.152.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "PipelineStack/AssetParameters/6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.152.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.152.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.152.0"
+            }
+          },
+          "MyFunction-test": {
+            "id": "MyFunction-test",
+            "path": "PipelineStack/MyFunction-test",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "PipelineStack/MyFunction-test/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PipelineStack/MyFunction-test/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.CfnRole",
+                      "version": "1.152.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-iam.Role",
+                  "version": "1.152.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "PipelineStack/MyFunction-test/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "PipelineStack/MyFunction-test/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.AssetStaging",
+                      "version": "1.152.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "PipelineStack/MyFunction-test/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3.BucketBase",
+                      "version": "1.152.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                  "version": "1.152.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "PipelineStack/MyFunction-test/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "MyFunctiontestServiceRole1ACA1016",
+                        "Arn"
+                      ]
+                    },
+                    "functionName": "MyFunctionTestPipeline",
+                    "handler": "test.lambda_func",
+                    "runtime": "python3.6"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                  "version": "1.152.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-lambda.Function",
+              "version": "1.152.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "PipelineStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "PipelineStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.152.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "PipelineStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnCondition",
+                  "version": "1.152.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.152.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Stack",
+          "version": "1.152.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "@aws-cdk/core.App",
+      "version": "1.152.0"
+    }
+  }
+}
