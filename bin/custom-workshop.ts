@@ -2,6 +2,7 @@
 import 'source-map-support/register';
 import * as cdk from "@aws-cdk/core";
 import { CustomWorkshopStack } from '../lib/custom-workshop-stack';
+import { PipelineStack } from '../lib/pipeline-stack';
 
 const app = new cdk.App();
 new CustomWorkshopStack(app, 'CustomWorkshopStack', {
@@ -19,3 +20,9 @@ new CustomWorkshopStack(app, 'CustomWorkshopStack', {
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
+
+new PipelineStack(app, 'PipelineStack', {
+  
+});
+
+app.synth()

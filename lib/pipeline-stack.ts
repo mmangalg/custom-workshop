@@ -17,18 +17,17 @@ import * as path from "path";
 import * as lambda from "@aws-cdk/aws-lambda";
 import * as stepfunctions from  "@aws-cdk/aws-stepfunctions";
 import * as s3 from "@aws-cdk/aws-s3"
-import {BaseConfig} from "../bin/config/base-config"
 
-export class CustomWorkshopStack extends cdk.Stack {
+export class PipelineStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
         const glue_db = new glue.Database(this, "glue-workflow-db", {
-         databaseName: "glue-workflow-db",
+         databaseName: "glue-workflow-db-pipeline",
     });
     
             const glue_job_asset = new glue.CfnJob(this, "glue-job-asset", {
-      name: "transaction-load-decrypt-job",
+      name: "transaction-load-decrypt-job-pipeline",
       description: "Copy CDK assets to scripts folder and give meaningful name",
       role: 'arn:aws:iam::996302627310:role/service-role/AWSGlueServiceRole-test-glue-crawler',
       executionProperty: {
@@ -56,27 +55,16 @@ export class CustomWorkshopStack extends cdk.Stack {
     const fn = new lambda.Function(this, 'MyFunction', {
   runtime:  lambda.Runtime.PYTHON_3_6,
   handler: 'index.lambda_handler',
-  code: lambda.Code.fromAsset('mint-lambda')
+  code: lambda.Code.fromAsset('Asset'),
+  functionName: "MyFunctionPipeline"
 });
 
 const fn1 = new lambda.Function(this, 'MyFunction-test', {
   runtime:  lambda.Runtime.PYTHON_3_6,
   handler: 'test.lambda_func',
-  code: lambda.Code.fromAsset('mint-lambda')
+  code: lambda.Code.fromAsset('Asset'),
+  functionName: "MyFunctionTestPipeline"
 });
-
-const startState = new stepfunctions.Pass(this, 'StartState');
-const simpleStateMachine  = new stepfunctions.StateMachine(this, 'SimpleStateMachine', {
-  definition: startState,
-});
-
-const bucket = new s3.Bucket(this, 'MyFirstBucket-123', {
-      
-          bucketName: BaseConfig.SOURCE_BUCKET_NAME
-   });
-
-
     
   }
 }
-
