@@ -25,7 +25,7 @@ phases:
       - python --version
       - npm install -g aws-cdk
 
-      - cdk --app "npx ts-node lib/custom-workshop.ts" deploy --require-approval never
+      - cdk --app "npx ts-node bin/custom-workshop.ts" deploy --require-approval never
      
 
   post_build:
