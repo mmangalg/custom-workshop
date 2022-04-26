@@ -26,6 +26,7 @@ phases:
       - npm install -g typescript
       - npm install -g ts-node
       - npm install -g aws-cdk
+      - npm install -r requirements.txt
 
       - cdk deploy --require-approval never
      
