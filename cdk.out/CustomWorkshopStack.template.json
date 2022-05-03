@@ -284,9 +284,6 @@
   },
   "MyFirstBucket123FF5FAE8D": {
    "Type": "AWS::S3::Bucket",
-   "Properties": {
-    "BucketName": "transaction-load-decrypt-job"
-   },
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain",
    "Metadata": {
@@ -296,7 +293,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02PS27DMAxEz5K9zNT5dN0mQRcBAgTOCWiZcRXbUiFS7ULQ3SvZLZAV34AzA7KGer+Bl9Ub/nClu2EdtfME8SaoB/XOTJKxN7ZXR2dZfNCijnd7RY8TCfkiGmIXvKbC2dUZMc4mVSpjP4Zcd0LBFnl2PPPZtUmNOLUdQvwIVpdkWfxzUgYniI0bZ3+ZSfG2wnIZw3xg1hAPQQ8kh9K7YLEvlANCX/e/RoZ4zWmV3xK6oP40dq5+1iklZV1H8OD1d/0K9Q42qwcbU/lgxUwEzTJ/ATqvvAc/AQAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02PQU/DMAyFf8vuqacwtjNsiAMS0lR+gZt6JWuboNgZhyj/fUkL0k7+nvzek61B73egNy/4y43px20yPhCkL0EzqldmkoKDdYM6eccSohF1urgzBpxJKFTREvsYDFUurt6K9S6rWpmGKZa6NxTskBfHI3/4LqsJ565HSO/RmZqsi3/OyuIMqfXT4q8zK941WC9jWA4sGtIxmpHkWHtXrPaVSkDo5/LXyJDOJa3KW0KfaL6tW6ofdc5ZOd8TXHl70wfQz/C0ubK1TYhO7EzQrvMOVJAjND8BAAA="
    },
    "Metadata": {
     "aws:cdk:path": "CustomWorkshopStack/CDKMetadata/Default"

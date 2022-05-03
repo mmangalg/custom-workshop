@@ -17,7 +17,7 @@ import * as path from "path";
 import * as lambda from "@aws-cdk/aws-lambda";
 import * as stepfunctions from  "@aws-cdk/aws-stepfunctions";
 import * as s3 from "@aws-cdk/aws-s3"
-import {BaseConfig} from "../bin/config/base-config"
+//import {BaseConfig} from "../bin/config/base-config"
 
 export class CustomWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -72,7 +72,8 @@ const simpleStateMachine  = new stepfunctions.StateMachine(this, 'SimpleStateMac
 
 const bucket = new s3.Bucket(this, 'MyFirstBucket-123', {
       
-          bucketName: BaseConfig.SOURCE_BUCKET_NAME
+          //bucketName: BaseConfig.SOURCE_BUCKET_NAME
+          
    });
 
 

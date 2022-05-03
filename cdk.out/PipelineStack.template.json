@@ -1,51 +1,251 @@
 {
  "Resources": {
-  "glueworkflowdb61A1F70D": {
-   "Type": "AWS::Glue::Database",
+  "MyLogGroup5C0DAD85": {
+   "Type": "AWS::Logs::LogGroup",
    "Properties": {
-    "CatalogId": {
-     "Ref": "AWS::AccountId"
+    "LogGroupName": "mint-migration-codebuild-logs",
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "PipelineStack/MyLogGroup/Resource"
+   }
+  },
+  "MyLogGroupPolicyResourcePolicy01398556": {
+   "Type": "AWS::Logs::ResourcePolicy",
+   "Properties": {
+    "PolicyDocument": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"Statement\":[{\"Action\":[\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"996302627310\"},\"Resource\":\"",
+       {
+        "Fn::GetAtt": [
+         "MyLogGroup5C0DAD85",
+         "Arn"
+        ]
+       },
+       "\"}],\"Version\":\"2012-10-17\"}"
+      ]
+     ]
     },
-    "DatabaseInput": {
-     "Name": "glue-workflow-db-pipeline"
+    "PolicyName": "PipelineStackMyLogGroupPolicy9218281B"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PipelineStack/MyLogGroup/Policy/ResourcePolicy"
+   }
+  },
+  "MyProject39F7B0AE": {
+   "Type": "AWS::CodeBuild::Project",
+   "Properties": {
+    "Artifacts": {
+     "Type": "CODEPIPELINE"
+    },
+    "Environment": {
+     "ComputeType": "BUILD_GENERAL1_SMALL",
+     "Image": "aws/codebuild/standard:1.0",
+     "ImagePullCredentialsType": "CODEBUILD",
+     "PrivilegedMode": false,
+     "Type": "LINUX_CONTAINER"
+    },
+    "ServiceRole": "arn:aws:iam::996302627310:role/service-role/codebuild-test-project-service-role",
+    "Source": {
+     "Type": "CODEPIPELINE"
+    },
+    "BuildBatchConfig": {
+     "ServiceRole": {
+      "Fn::GetAtt": [
+       "MyProjectBatchServiceRole6B35CF0E",
+       "Arn"
+      ]
+     }
+    },
+    "Cache": {
+     "Type": "NO_CACHE"
+    },
+    "Description": "mint-migration-codebuild-project",
+    "EncryptionKey": "alias/aws/s3",
+    "LogsConfig": {
+     "CloudWatchLogs": {
+      "GroupName": {
+       "Ref": "MyLogGroup5C0DAD85"
+      },
+      "Status": "ENABLED"
+     }
+    },
+    "Name": "mint-migration-codebuild-project",
+    "TimeoutInMinutes": 90
+   },
+   "Metadata": {
+    "aws:cdk:path": "PipelineStack/MyProject/Resource"
+   }
+  },
+  "MyProjectBatchServiceRole6B35CF0E": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "codebuild.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "PipelineStack/glue-workflow-db/Resource"
+    "aws:cdk:path": "PipelineStack/MyProject/BatchServiceRole/Resource"
    }
   },
-  "gluejobasset": {
-   "Type": "AWS::Glue::Job",
+  "MyProjectBatchServiceRoleDefaultPolicy7A0E5721": {
+   "Type": "AWS::IAM::Policy",
    "Properties": {
-    "Command": {
-     "Name": "glueetl",
-     "PythonVersion": "3",
-     "ScriptLocation": "s3://mint-migration-scripts/glue-artifacts/glue-job-name/transaction-load-decrypt-job.scala"
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "codebuild:RetryBuild",
+        "codebuild:StartBuild",
+        "codebuild:StopBuild"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "MyProject39F7B0AE",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
     },
-    "Role": "arn:aws:iam::996302627310:role/service-role/AWSGlueServiceRole-test-glue-crawler",
-    "DefaultArguments": {
-     "--job-language": "scala",
-     "--class": "GlueApp",
-     "--shard-identifier": "shard1",
-     "--source_db": "mint-migration-stage-decrypted-db",
-     "--targetLocation": "s3://mint-migration-raw-encrypted/shard-1/schema_name.table-1"
-    },
-    "Description": "Copy CDK assets to scripts folder and give meaningful name",
-    "ExecutionProperty": {
-     "MaxConcurrentRuns": 1
-    },
-    "GlueVersion": "3.0",
-    "MaxRetries": 2,
-    "Name": "transaction-load-decrypt-job-pipeline",
-    "NumberOfWorkers": 10,
-    "Timeout": 60,
-    "WorkerType": "G.1X"
+    "PolicyName": "MyProjectBatchServiceRoleDefaultPolicy7A0E5721",
+    "Roles": [
+     {
+      "Ref": "MyProjectBatchServiceRole6B35CF0E"
+     }
+    ]
    },
    "Metadata": {
-    "aws:cdk:path": "PipelineStack/glue-job-asset"
+    "aws:cdk:path": "PipelineStack/MyProject/BatchServiceRole/DefaultPolicy/Resource"
    }
   },
-  "MyFunctionServiceRole3C357FF2": {
+  "MyPipelineArtifactsBucket727923DD": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "aws:kms"
+       }
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "PipelineStack/MyPipeline/ArtifactsBucket/Resource"
+   }
+  },
+  "MyPipelineArtifactsBucketPolicyDFDA675B": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "MyPipelineArtifactsBucket727923DD"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MyPipelineArtifactsBucket727923DD",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MyPipelineArtifactsBucket727923DD",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*",
+        "s3:PutObject*"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": "arn:aws:iam::996302627310:role/service-role/codebuild-test-project-service-role"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MyPipelineArtifactsBucket727923DD",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MyPipelineArtifactsBucket727923DD",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PipelineStack/MyPipeline/ArtifactsBucket/Policy/Resource"
+   }
+  },
+  "MyPipelineRoleC0D47CA4": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -54,93 +254,171 @@
        "Action": "sts:AssumeRole",
        "Effect": "Allow",
        "Principal": {
-        "Service": "lambda.amazonaws.com"
+        "Service": "codepipeline.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PipelineStack/MyPipeline/Role/Resource"
+   }
+  },
+  "MyPipelineRoleDefaultPolicy34F09EFA": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*",
+        "s3:PutObject*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MyPipelineArtifactsBucket727923DD",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MyPipelineArtifactsBucket727923DD",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "MyPipelineBuildCodeBuildCodePipelineActionRoleCAE538CA",
+         "Arn"
+        ]
        }
       }
      ],
      "Version": "2012-10-17"
     },
-    "ManagedPolicyArns": [
+    "PolicyName": "MyPipelineRoleDefaultPolicy34F09EFA",
+    "Roles": [
      {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-       ]
-      ]
+      "Ref": "MyPipelineRoleC0D47CA4"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "PipelineStack/MyFunction/ServiceRole/Resource"
+    "aws:cdk:path": "PipelineStack/MyPipeline/Role/DefaultPolicy/Resource"
    }
   },
-  "MyFunction3BAA72D1": {
-   "Type": "AWS::Lambda::Function",
+  "MyPipelineAED38ECF": {
+   "Type": "AWS::CodePipeline::Pipeline",
    "Properties": {
-    "Code": {
-     "S3Bucket": {
-      "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB"
-     },
-     "S3Key": {
-      "Fn::Join": [
-       "",
-       [
-        {
-         "Fn::Select": [
-          0,
-          {
-           "Fn::Split": [
-            "||",
-            {
-             "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
-            }
-           ]
-          }
-         ]
-        },
-        {
-         "Fn::Select": [
-          1,
-          {
-           "Fn::Split": [
-            "||",
-            {
-             "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
-            }
-           ]
-          }
-         ]
-        }
-       ]
-      ]
-     }
-    },
-    "Role": {
+    "RoleArn": {
      "Fn::GetAtt": [
-      "MyFunctionServiceRole3C357FF2",
+      "MyPipelineRoleC0D47CA4",
       "Arn"
      ]
     },
-    "FunctionName": "MyFunctionPipeline",
-    "Handler": "index.lambda_handler",
-    "Runtime": "python3.6"
+    "Stages": [
+     {
+      "Actions": [
+       {
+        "ActionTypeId": {
+         "Category": "Source",
+         "Owner": "ThirdParty",
+         "Provider": "GitHub",
+         "Version": "1"
+        },
+        "Configuration": {
+         "Owner": "mmangalg",
+         "Repo": "custom-workshop",
+         "Branch": "master",
+         "OAuthToken": "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",
+         "PollForSourceChanges": false
+        },
+        "Name": "Checkout",
+        "OutputArtifacts": [
+         {
+          "Name": "Artifact_Source_Checkout"
+         }
+        ],
+        "RunOrder": 1
+       }
+      ],
+      "Name": "Source"
+     },
+     {
+      "Actions": [
+       {
+        "ActionTypeId": {
+         "Category": "Build",
+         "Owner": "AWS",
+         "Provider": "CodeBuild",
+         "Version": "1"
+        },
+        "Configuration": {
+         "ProjectName": {
+          "Ref": "MyProject39F7B0AE"
+         },
+         "BatchEnabled": "true",
+         "CombineArtifacts": "true"
+        },
+        "InputArtifacts": [
+         {
+          "Name": "Artifact_Source_Checkout"
+         }
+        ],
+        "Name": "CodeBuild",
+        "OutputArtifacts": [
+         {
+          "Name": "Artifact_Build_CodeBuild"
+         }
+        ],
+        "RoleArn": {
+         "Fn::GetAtt": [
+          "MyPipelineBuildCodeBuildCodePipelineActionRoleCAE538CA",
+          "Arn"
+         ]
+        },
+        "RunOrder": 1
+       }
+      ],
+      "Name": "Build"
+     }
+    ],
+    "ArtifactStore": {
+     "Location": {
+      "Ref": "MyPipelineArtifactsBucket727923DD"
+     },
+     "Type": "S3"
+    }
    },
    "DependsOn": [
-    "MyFunctionServiceRole3C357FF2"
+    "MyPipelineRoleDefaultPolicy34F09EFA",
+    "MyPipelineRoleC0D47CA4"
    ],
    "Metadata": {
-    "aws:cdk:path": "PipelineStack/MyFunction/Resource",
-    "aws:asset:path": "asset.6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
-    "aws:asset:is-bundled": false,
-    "aws:asset:property": "Code"
+    "aws:cdk:path": "PipelineStack/MyPipeline/Resource"
    }
   },
-  "MyFunctiontestServiceRole1ACA1016": {
+  "MyPipelineBuildCodeBuildCodePipelineActionRoleCAE538CA": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -149,115 +427,74 @@
        "Action": "sts:AssumeRole",
        "Effect": "Allow",
        "Principal": {
-        "Service": "lambda.amazonaws.com"
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":root"
+          ]
+         ]
+        }
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PipelineStack/MyPipeline/Build/CodeBuild/CodePipelineActionRole/Resource"
+   }
+  },
+  "MyPipelineBuildCodeBuildCodePipelineActionRoleDefaultPolicyD9654D9B": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "codebuild:BatchGetBuildBatches",
+        "codebuild:StartBuildBatch",
+        "codebuild:StopBuildBatch"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "MyProject39F7B0AE",
+         "Arn"
+        ]
        }
       }
      ],
      "Version": "2012-10-17"
     },
-    "ManagedPolicyArns": [
+    "PolicyName": "MyPipelineBuildCodeBuildCodePipelineActionRoleDefaultPolicyD9654D9B",
+    "Roles": [
      {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-       ]
-      ]
+      "Ref": "MyPipelineBuildCodeBuildCodePipelineActionRoleCAE538CA"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "PipelineStack/MyFunction-test/ServiceRole/Resource"
-   }
-  },
-  "MyFunctiontestF36C7DC9": {
-   "Type": "AWS::Lambda::Function",
-   "Properties": {
-    "Code": {
-     "S3Bucket": {
-      "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB"
-     },
-     "S3Key": {
-      "Fn::Join": [
-       "",
-       [
-        {
-         "Fn::Select": [
-          0,
-          {
-           "Fn::Split": [
-            "||",
-            {
-             "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
-            }
-           ]
-          }
-         ]
-        },
-        {
-         "Fn::Select": [
-          1,
-          {
-           "Fn::Split": [
-            "||",
-            {
-             "Ref": "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805"
-            }
-           ]
-          }
-         ]
-        }
-       ]
-      ]
-     }
-    },
-    "Role": {
-     "Fn::GetAtt": [
-      "MyFunctiontestServiceRole1ACA1016",
-      "Arn"
-     ]
-    },
-    "FunctionName": "MyFunctionTestPipeline",
-    "Handler": "test.lambda_func",
-    "Runtime": "python3.6"
-   },
-   "DependsOn": [
-    "MyFunctiontestServiceRole1ACA1016"
-   ],
-   "Metadata": {
-    "aws:cdk:path": "PipelineStack/MyFunction-test/Resource",
-    "aws:asset:path": "asset.6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1",
-    "aws:asset:is-bundled": false,
-    "aws:asset:property": "Code"
+    "aws:cdk:path": "PipelineStack/MyPipeline/Build/CodeBuild/CodePipelineActionRole/DefaultPolicy/Resource"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02OwY7CMAxEv4V7aigLnIEiDpxW5Qvc1FShbSLFzu4hyr+TFCFxmjfyeDQ11PstbFZH/OdK9+M6aucJ4l1Qj+rETJJxMHZQjbMsPmhRzcP+oseZhHwxLbELXlPhnOqNGGeTKpVxmEKuu6Bgh7wkvvnmuqQmnLseIV6D1eWzHD6clMEZYuumJV80Kf6psCxjWAZmD+egR5Jzrk1JWdcTPHn9Vx+g3sF29WRjKh+smJmgfesLetVunPoAAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02OSQ7CMAxFz8I+uArTGsGCDYuqnKCkBrkNcZUBhKLcHTpAu/rf3/azJcjtGuRiX77cUlVNFhVbhHjxpWpEgY6DVSiObJy3QXlxvJkpvZlvoyJPbJLoCFHz3UE88/1kObTdxN//1nLWpN5z0JAkobjCayBdQcypRU0Gc8s1DmdHmwSVD4gF6/6BXifkHNWOjInWT4w+CbeGeAiqwR4/ukEm4LxOKQnzBUPtsqfcgdzAalE7oqUNxtMDoRj0A2FqgupWAQAA"
    },
    "Metadata": {
     "aws:cdk:path": "PipelineStack/CDKMetadata/Default"
    },
    "Condition": "CDKMetadataAvailable"
-  }
- },
- "Parameters": {
-  "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3BucketCBF4FCDB": {
-   "Type": "String",
-   "Description": "S3 bucket for asset \"6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1\""
-  },
-  "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1S3VersionKey9F15B805": {
-   "Type": "String",
-   "Description": "S3 key for asset version \"6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1\""
-  },
-  "AssetParameters6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1ArtifactHash71035908": {
-   "Type": "String",
-   "Description": "Artifact hash for asset \"6eb39d79af7e3ebd4daf9c940a28431b2646de04e50a4ff84d2461df19808cd1\""
   }
  },
  "Conditions": {

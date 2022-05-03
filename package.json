@@ -20,10 +20,14 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
+    "@aws-cdk/aws-codebuild": "^1.153.1",
+    "@aws-cdk/aws-codepipeline": "^1.153.1",
+    "@aws-cdk/aws-codepipeline-actions": "^1.153.1",
     "@aws-cdk/aws-glue": "^1.152.0",
     "@aws-cdk/aws-stepfunctions": "^1.152.0",
     "@aws-cdk/aws-stepfunctions-tasks": "^1.152.0",
     "@aws-cdk/core": "^1.152.0",
+    "@aws-cdk/pipelines": "^1.153.1",
     "aws-cdk-lib": "2.20.0",
     "constructs": "^10.0.0",
     "source-map-support": "^0.5.16"
