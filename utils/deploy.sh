@@ -9,6 +9,7 @@
 #     exit 1;
 # fi
 
+<<<<<<< HEAD
 # # upload code and models to source bucket
 # aws s3 cp --recursive /home/ec2-user/ekyc/ s3://$4/ekyc/
 
