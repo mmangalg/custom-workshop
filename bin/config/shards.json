@@ -3,6 +3,7 @@
    "static_Json": {
                     
                          "pod1": {
+                                     "pod_id": "pod1",
                                      "shard1": "shard1_arn", 
                                      "shard2": "shard2_arn", 
                                      "shard3": "shard3_arn", 
@@ -11,6 +12,7 @@
                                  },
                   
                           "pod2": {
+                                     "pod_id": "pod2",
                                      "shard1": "shard1_arn", 
                                      "shard2": "shard2_arn", 
                                      "shard3": "shard3_arn", 
